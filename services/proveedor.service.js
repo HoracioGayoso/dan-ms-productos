@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/index.js'
 const getProveedorByID = async ({ id }) => {
     try {
-        const response =  await prisma.provider.findUnique({
+        const response =  await prisma.Proveedor.findUnique({
             where: {
                 id: Number(id),
             },
@@ -16,7 +16,7 @@ const getProveedorByID = async ({ id }) => {
 };
 const getProveedorByNombre = async ({ nombre }) => {
     try {
-        const response =  await prisma.provider.findUnique({
+        const response =  await prisma.Proveedor.findUnique({
             where: {
                 nombre: nombre,
             },
@@ -31,7 +31,7 @@ const getProveedorByNombre = async ({ nombre }) => {
 };
 const getAllProveedores = async () => {
     try {
-        const response = await prisma.provider.findMany({ });
+        const response = await prisma.Proveedor.findMany({ });
         return {
             status: true,
             data: response,
@@ -46,7 +46,7 @@ const searchProveedores = async ({ id, nombre }) => {
         if (nombre) whereClause.nombre = { contains: nombre };
         if (id) whereClause.id = { equals: parseInt(id) };
 
-        const proveedores = await prisma.product.findMany({ where: whereClause });
+        const proveedores = await prisma.Proveedor.findMany({ where: whereClause });
         return {
             status: true,
             data: proveedores,

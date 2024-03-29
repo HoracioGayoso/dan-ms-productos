@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/index.js'
 const getCategoriaByID = async ({ id }) => {
     try {
-        const response =  await prisma.category.findUnique({
+        const response =  await prisma.Categoria.findUnique({
             where: {
                 id: Number(id),
             },
@@ -16,7 +16,7 @@ const getCategoriaByID = async ({ id }) => {
 };
 const getCategoriaByNombre = async ({ nombre }) => {
     try {
-        const response =  await prisma.category.findUnique({
+        const response =  await prisma.Categoria.findUnique({
             where: {
                 nombre: nombre,
             },
@@ -31,7 +31,7 @@ const getCategoriaByNombre = async ({ nombre }) => {
 };
 const getAllCategorias = async () => {
     try {
-        const response = await prisma.category.findMany({ });
+        const response = await prisma.Categoria.findMany({ });
         return {
             status: true,
             data: response,
@@ -46,7 +46,7 @@ const searchCategorias = async ({ id, nombre }) => {
         if (nombre) whereClause.nombre = { contains: nombre };
         if (id) whereClause.id = { equals: parseInt(id) };
 
-        const categorias = await prisma.category.findMany({ where: whereClause });
+        const categorias = await prisma.Categoria.findMany({ where: whereClause });
         return {
             status: true,
             data: categorias,

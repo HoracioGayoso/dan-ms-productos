@@ -1,17 +1,17 @@
 import { prisma } from '../prisma/index.js'
 const createProducto = async ({ nombre, descripcion, proveedorId, stockActual, categoriaId, ordenProvisionDetalle }) => {
     try {
-        const proveedor = await prisma.provider.findUnique({
+        const proveedor = await prisma.Proveedor.findUnique({
             where: {
                 id: Number(proveedorId),
             },
         })
-        const categoria = await prisma.category.findUnique({
+        const categoria = await prisma.Categoria.findUnique({
             where: {
                 id: Number(categoriaId),
             },
         })
-        const producto = await prisma.product.create({
+        const producto = await prisma.Producto.create({
             nombre: nombre,
             descripcion: descripcion,
             proveedorId: proveedorId,
@@ -31,7 +31,7 @@ const createProducto = async ({ nombre, descripcion, proveedorId, stockActual, c
 };
 const getProducto = async ({ id }) => {
     try {
-        const response =  await prisma.product.findUnique({
+        const response =  await prisma.Producto.findUnique({
             where: {
                 id: Number(id),
             },
@@ -46,7 +46,7 @@ const getProducto = async ({ id }) => {
 };
 const getAllProductos = async () => {
     try {
-        const response = await prisma.product.findMany({ });
+        const response = await prisma.Producto.findMany({ });
         return {
             status: true,
             data: response,
@@ -57,17 +57,17 @@ const getAllProductos = async () => {
 };
 const updateProducto = async ({ id, nombre, descripcion, proveedorId, stockActual, categoriaId, ordenProvisionDetalle }) => {
     try {
-        const productoInicial = await prisma.product.findUnique({
+        const productoInicial = await prisma.Producto.findUnique({
             where: {
                 id: Number(id),
             },
         })
-        const proveedor = await prisma.provider.findUnique({
+        const proveedor = await prisma.Proveedor.findUnique({
             where: {
                 id: Number(proveedorId),
             },
         })
-        const categoria = await prisma.category.findUnique({
+        const categoria = await prisma.Categoria.findUnique({
             where: {
                 id: Number(categoriaId),
             },
@@ -82,7 +82,7 @@ const updateProducto = async ({ id, nombre, descripcion, proveedorId, stockActua
             categoria: categoria? categoria : productoInicial.categoria,
             ordenProvisionDetalle: ordenProvisionDetalle? ordenProvisionDetalle : productoInicial.ordenProvisionDetalle,
         }
-        const productoFinal = await prisma.product.update({
+        const productoFinal = await prisma.Producto.update({
             where: { id: Number(id) },
             data: data,
         })
@@ -96,7 +96,7 @@ const updateProducto = async ({ id, nombre, descripcion, proveedorId, stockActua
 };
 const deleteProducto = async ({ id }) => {
     try {
-        const producto = await prisma.product.delete({
+        const producto = await prisma.Producto.delete({
             where: {
                 id: Number(id),
             },
@@ -115,7 +115,7 @@ const searchProductos = async ({ nombre, nombreProveedor, categoria, stock }) =>
         let whereClause = {};
         if (nombre) whereClause.nombre = { contains: nombre };
         if (nombreProveedor) {
-            const proveedor = await prisma.provider.findUnique({
+            const proveedor = await prisma.Proveedor.findUnique({
                 where: { nombre: nombreProveedor }
             });
             if (proveedor) {
@@ -123,7 +123,7 @@ const searchProductos = async ({ nombre, nombreProveedor, categoria, stock }) =>
             }
         }
         if (categoria) {
-            const category = await prisma.category.findUnique({
+            const category = await prisma.Categoria.findUnique({
                 where: { nombre: categoria }
             });
             if (category) {
@@ -132,7 +132,7 @@ const searchProductos = async ({ nombre, nombreProveedor, categoria, stock }) =>
         }
         if (stock) whereClause.stockActual = { equals: parseInt(stock) };
 
-        const productos = await prisma.product.findMany({ where: whereClause });
+        const productos = await prisma.Producto.findMany({ where: whereClause });
         return {
             status: true,
             data: productos,
