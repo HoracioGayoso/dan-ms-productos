@@ -1,7 +1,7 @@
 import { prisma } from '../prisma/index.js'
-const getProveedorByID = async ({ id }) => {
+const getCategoriaByID = async ({ id }) => {
     try {
-        const response =  await prisma.provider.findUnique({
+        const response =  await prisma.category.findUnique({
             where: {
                 id: Number(id),
             },
@@ -14,9 +14,9 @@ const getProveedorByID = async ({ id }) => {
         throw new Error(e);
     }
 };
-const getProveedorByNombre = async ({ nombre }) => {
+const getCategoriaByNombre = async ({ nombre }) => {
     try {
-        const response =  await prisma.provider.findUnique({
+        const response =  await prisma.category.findUnique({
             where: {
                 nombre: nombre,
             },
@@ -29,9 +29,9 @@ const getProveedorByNombre = async ({ nombre }) => {
         throw new Error(e);
     }
 };
-const getAllProveedores = async () => {
+const getAllCategorias = async () => {
     try {
-        const response = await prisma.provider.findMany({ });
+        const response = await prisma.category.findMany({ });
         return {
             status: true,
             data: response,
@@ -40,19 +40,19 @@ const getAllProveedores = async () => {
         throw new Error(e);
     }
 };
-const searchProveedores = async ({ id, nombre }) => {
+const searchCategorias = async ({ id, nombre }) => {
     try {
         let whereClause = {};
         if (nombre) whereClause.nombre = { contains: nombre };
         if (id) whereClause.id = { equals: parseInt(id) };
 
-        const proveedores = await prisma.product.findMany({ where: whereClause });
+        const categorias = await prisma.category.findMany({ where: whereClause });
         return {
             status: true,
-            data: proveedores,
+            data: categorias,
         };
     } catch (e) {
         throw new Error(e);
     }
 }
-export { getProveedorByID, getProveedorByNombre, getAllProveedores, searchProveedores };
+export { getCategoriaByID, getCategoriaByNombre, getAllCategorias, searchCategorias };

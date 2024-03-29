@@ -31,7 +31,7 @@ export default app => {
         getProveedorByNombre,
     );
     app.get(
-        '/search',
+        '/searchProveedores',
         // [
         //     verifyToken,
         //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])

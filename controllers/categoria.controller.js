@@ -1,17 +1,17 @@
 import { matchedData } from 'express-validator';
 import * as httpCodes from '../constants/httpCodes.js';
-import * as service from '../services/proveedor.service.js';
+import * as service from '../services/categoria.service.js';
 import logger from '../utils/logger.js';
 
-const getProveedorByID = async (req, res) => {
+const getCategoriaByID = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const response = await service.getProveedorByID({ id });
+        const response = await service.getCategoriaByID({ id });
         if (response.status) {
             return res.apiSuccess(
                 response.data,
-                'Proveedor obtenido exitosamente',
+                'Categoria obtenida exitosamente',
                 httpCodes.OK,
             );
         }
@@ -21,15 +21,15 @@ const getProveedorByID = async (req, res) => {
         res.apiError(e, httpCodes.INTERNAL_SERVER_ERROR);
     }
 };
-const getProveedorByNombre = async (req, res) => {
+const getCategoriaByNombre = async (req, res) => {
     try {
         const { nombre } = req.params;
 
-        const response = await service.getProveedorByNombre({ nombre });
+        const response = await service.getCategoriaByNombre({ nombre });
         if (response.status) {
             return res.apiSuccess(
                 response.data,
-                'Proveedor obtenido exitosamente',
+                'Categoria obtenida exitosamente',
                 httpCodes.OK,
             );
         }
@@ -40,13 +40,13 @@ const getProveedorByNombre = async (req, res) => {
     }
 };
 
-const getAllProveedores = async (req, res) => {
+const getAllCategorias = async (req, res) => {
     try {
-        const response = await service.getAllProveedor({});
+        const response = await service.getAllCategorias({});
         if (response.status) {
             return res.apiSuccess(
                 response.data,
-                'Proveedores obtenidos exitosamente',
+                'Categorias obtenidas exitosamente',
                 httpCodes.OK,
                 true,
                 response.pagination,
@@ -57,18 +57,18 @@ const getAllProveedores = async (req, res) => {
         res.apiError(e, httpCodes.INTERNAL_SERVER_ERROR);
     }
 };
-const searchProveedores = async (req, res) => {
+const searchCategorias = async (req, res) => {
     try {
         const { id, nombre } = req.query;
 
-        const response = await service.searchProveedor({ id, nombre });
+        const response = await service.searchCategorias({ id, nombre });
         res.apiSuccess(
             response.data,
-            'Proveedor encontrado exitosamente',
+            'Categoria encontrada exitosamente',
             httpCodes.OK,
         );
     } catch (e) {
         res.apiError(e, httpCodes.INTERNAL_SERVER_ERROR);
     }
 }
-export { getProveedorByID, getProveedorByNombre, getAllProveedores, searchProveedores };
+export { getCategoriaByID, getCategoriaByNombre, getAllCategorias, searchCategorias };

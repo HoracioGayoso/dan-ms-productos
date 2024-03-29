@@ -1,55 +1,41 @@
 import { verifyToken, verifyRoles } from "../middlewares/auth.middleware.js";
-import { createProducto, deleteProducto, updateProducto, getAllProductos, getProducto, searchProductos } from "../controllers/producto.controller.js";
+import { getAllCategorias, getCategoriaByNombre, getCategoriaByID, searchCategorias} from "../controllers/categoria.controller.js";
 import roles from "../constants/roles.js";
 
 export default app => {
     // Crea GET, POST, PATCH
     app.get(
-        '/producto',
+        '/categoria',
         // [
         //     verifyToken,
         //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
         // ],
-        getAllProductos,
+        getAllCategorias,
     );
     app.get(
-        '/producto/:id',
+        '/categoria/:id',
         // [
         //     verifyToken,
         //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
+        //     // verifyPalmProfile,
         // ],
-        getProducto,
-    );
-    app.post(
-        '/producto',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        createProducto,
-    );
-    app.patch(
-        '/producto/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        updateProducto,
-    );
-    app.delete(
-        '/producto/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        deleteProducto,
+        getCategoriaByID,
     );
     app.get(
-        '/searchProductos',
+        '/categoria/:nombre',
+        // [
+        //     verifyToken,
+        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
+        //     // verifyPalmProfile,
+        // ],
+        getCategoriaByNombre,
+    );
+    app.get(
+        '/searchCategorias',
         // [
         //     verifyToken,
         //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
         // ],
-        searchProductos,
+        searchCategorias,
     );
 };
