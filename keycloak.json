@@ -1,0 +1,12 @@
+{
+  "realm": "dan-realm",
+  "auth-server-url": "http://127.0.0.1:6080/",
+  "ssl-required": "external",
+  "resource": "dan-client",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "EBS9qgCVgVRpWnPJKhKOv3gFuZrLQATb"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

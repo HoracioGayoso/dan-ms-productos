@@ -1,41 +1,18 @@
-import { verifyToken, verifyRoles } from "../middlewares/auth.middleware.js";
-import { getAllCategorias, getCategoriaByNombre, getCategoriaByID, searchCategorias} from "../controllers/categoria.controller.js";
-import roles from "../constants/roles.js";
+import express from 'express';
+import { getAllCategorias, getCategoriaByNombre, getCategoriaByID, searchCategorias } from "../controllers/categoria.controller.js";
 
-export default app => {
-    // Crea GET, POST, PATCH
-    app.get(
-        '/categoria',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        getAllCategorias,
-    );
-    app.get(
-        '/categoria/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        //     // verifyPalmProfile,
-        // ],
-        getCategoriaByID,
-    );
-    app.get(
-        '/categoria/:nombre',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        //     // verifyPalmProfile,
-        // ],
-        getCategoriaByNombre,
-    );
-    app.get(
-        '/searchCategorias',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        searchCategorias,
-    );
-};
+const router = express.Router();
+
+// Obtener todas las categorías
+router.get('/categoria', getAllCategorias);
+
+// Obtener categoría por ID
+router.get('/categoria/:id', getCategoriaByID);
+
+// Obtener categoría por nombre
+router.get('/categoriaByNombre/:nombre', getCategoriaByNombre);
+
+// Buscar categorías
+router.get('/searchCategorias', searchCategorias);
+
+export default router;

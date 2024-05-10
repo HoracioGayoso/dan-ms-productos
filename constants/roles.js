@@ -1,5 +1,5 @@
 export default {
-    ADMIN: 'admin',
-    SUPERADMIN: 'superAdmin',
-    USER: 'user',
+    ESCRITURA: 'escritura_ROLE',
+    LECTURA: 'lectura_ROLE',
+    ADMINISTRACION: 'administracion_ROLE',
 };

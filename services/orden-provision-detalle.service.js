@@ -78,4 +78,4 @@ const getAllOrdenProvisionDetalle = async () => {
         throw new Error(e);
     }
 };
-export { createOrdenProvision, getAllOrdenProvisionDetalle, getOrdenProvisionDetalle };
+export { createOrdenProvisionDetalle, getAllOrdenProvisionDetalle, getOrdenProvisionDetalle };

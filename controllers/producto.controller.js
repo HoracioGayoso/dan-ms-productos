@@ -44,16 +44,18 @@ const getProducto = async (req, res) => {
 
 const getAllProductos = async (req, res) => {
     try {
-        const response = await service.getAllProductos({});
-        if (response.status) {
-            return res.apiSuccess(
-                response.data,
-                'Productos obtenidos exitosamente',
-                httpCodes.OK,
-                true,
-                response.pagination,
-            );
-        }
+        // const response = await service.getAllProductos({});
+        // if (response.status) {
+        //     return res.apiSuccess(
+        //         response.data,
+        //         'Productos obtenidos exitosamente',
+        //         httpCodes.OK,
+        //         true,
+        //         response.pagination,
+        //     );
+        // }
+        const message = "Conexión con la API establecida correctamente";
+        return res.status(200).send(message);
     } catch (e) {
         logger.error(e);
         res.apiError(e, httpCodes.INTERNAL_SERVER_ERROR);

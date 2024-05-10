@@ -1,41 +1,25 @@
-import { verifyToken, verifyRoles } from "../middlewares/auth.middleware.js";
-import { getAllProveedores, getProveedorByNombre, getProveedorByID, searchProveedores} from "../controllers/proveedor.controller.js";
-import roles from "../constants/roles.js";
+import express from 'express';
+import {
+    getAllProveedores,
+    getProveedorByID,
+    getProveedorByNombre,
+    searchProveedores
+} from "../controllers/proveedor.controller.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 
-export default app => {
-    // Crea GET, POST, PATCH
-    app.get(
-        '/proveedor',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        getAllProveedores,
-    );
-    app.get(
-        '/proveedor/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        //     // verifyPalmProfile,
-        // ],
-        getProveedorByID,
-    );
-    app.get(
-        '/proveedor/:nombre',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        //     // verifyPalmProfile,
-        // ],
-        getProveedorByNombre,
-    );
-    app.get(
-        '/searchProveedores',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        searchProveedores,
-    );
-};
+const router = express.Router();
+
+// Obtener todos los proveedores
+router.get('/proveedor', authMiddleware(['escritura', 'lectura']), getAllProveedores);
+
+
+// Obtener proveedor por ID
+router.get('/proveedor/:id', getProveedorByID);
+
+// Obtener proveedor por nombre
+router.get('/proveedorByNombre/:nombre', getProveedorByNombre);
+
+// Buscar proveedores
+router.get('/searchProveedores', searchProveedores);
+
+export default router;

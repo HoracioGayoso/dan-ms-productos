@@ -1,55 +1,24 @@
-import { verifyToken, verifyRoles } from "../middlewares/auth.middleware.js";
+import express from 'express';
 import { createProducto, deleteProducto, updateProducto, getAllProductos, getProducto, searchProductos } from "../controllers/producto.controller.js";
-import roles from "../constants/roles.js";
 
-export default app => {
-    // Crea GET, POST, PATCH
-    app.get(
-        '/producto',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        getAllProductos,
-    );
-    app.get(
-        '/producto/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        getProducto,
-    );
-    app.post(
-        '/producto',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        createProducto,
-    );
-    app.patch(
-        '/producto/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        updateProducto,
-    );
-    app.delete(
-        '/producto/:id',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN]),
-        // ],
-        deleteProducto,
-    );
-    app.get(
-        '/searchProductos',
-        // [
-        //     verifyToken,
-        //     verifyRoles([roles.USER, roles.ADMIN, roles.SUPERADMIN])
-        // ],
-        searchProductos,
-    );
-};
+const router = express.Router();
+
+// Obtener todos los productos
+router.get('/producto', getAllProductos);
+
+// Obtener producto por ID
+router.get('/producto/:id', getProducto);
+
+// Crear un nuevo producto
+router.post('/producto', createProducto);
+
+// Actualizar un producto existente
+router.patch('/producto/:id', updateProducto);
+
+// Eliminar un producto
+router.delete('/producto/:id', deleteProducto);
+
+// Buscar productos
+router.get('/searchProductos', searchProductos);
+
+export default router;
