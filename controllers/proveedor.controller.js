@@ -42,18 +42,18 @@ const getProveedorByNombre = async (req, res) => {
 
 const getAllProveedores = async (req, res) => {
     try {
-        const message = "Conexión con la API establecida correctamente";
-        return res.status(200).send(message);
-        // const response = await service.getAllProveedor({});
-        // if (response.status) {
-        //     return res.apiSuccess(
-        //         response.data,
-        //         'Proveedores obtenidos exitosamente',
-        //         httpCodes.OK,
-        //         true,
-        //         response.pagination,
-        //     );
-        // }
+        // const message = "Conexión con la API establecida correctamente";
+        // return res.status(200).send(message);
+        const response = await service.getAllProveedor({});
+        if (response.status) {
+            return res.apiSuccess(
+                response.data,
+                'Proveedores obtenidos exitosamente',
+                httpCodes.OK,
+                true,
+                response.pagination,
+            );
+        }
     } catch (e) {
         logger.error(e);
         res.apiError(e, httpCodes.INTERNAL_SERVER_ERROR);
